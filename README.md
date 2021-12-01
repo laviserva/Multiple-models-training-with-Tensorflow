@@ -1,5 +1,15 @@
 # deteccion-y-clasificacion-de-ataques-en-trafico-de-red-con-dnn
 
+Prerequisitos:
+
+    Instalar 3FEx en linux
+    Librerías necesarias para python:
+    Tensorflow 
+    pickle
+    sklearn
+    matplotlib
+    seaborn
+
 Hay 4 archivos importantes
 
 1.- pcap_2_images.py:
