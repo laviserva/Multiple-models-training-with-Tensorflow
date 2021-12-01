@@ -9,6 +9,10 @@ Prerequisitos:
     sklearn
     matplotlib
     seaborn
+    
+Descarga de los archivos pickle:
+    
+    https://mega.nz/file/IgVmhBaB#DFpaRBJi5kUvz9p4kBYpRroJ7cmkFdbMSUM5HzmqovU
 
 Hay 4 archivos importantes
 
