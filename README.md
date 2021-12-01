@@ -5,6 +5,10 @@ Hay 4 archivos importantes
 1.- pcap_2_images.py:
 Se revisa el directorio y sus subdirectorios, busca archivos pcap y a cada archivo pcap genera un archivo csv con información proporcionada por snort, también se genera una carpeta con imagenes .JPEG de dimension 1 x 280 pixeles. El nombre de la imagen se divide en 2 partes separadas por un guion bajo "_". Por ejemplo: 1050_1.JPEG. Donde 1050 es la fila 1050 del archivo csv generado mientras que la segunda parte "1" hace referencia a la etiqueta de la imagen, lo cual será util para su clasificación.
 
+    1050_1.JPG
+    1050: Renglon 1050 del archivo .csv generado a partir del .pcap
+    1: Etiqueta 1 o verdadera.
+
 2.- combinacion_pcaps.py:
 Si se tiene un archivo pcap el cual es trafico limpio, este se puede conmbinar con otro archivo pcap (con una botnet en este caso), para de esta manera se genere una dataset sintética. Igual que el archivo pcap_2_images.py genera un archivo csv, una carpeta con imagenes de la misma dimensión y misma nomenclatura.
 
@@ -20,3 +24,17 @@ Se crean varios directorios
     Tensorboard_logs: Guarda los archivos para correr tensorboard
     csv_logs: Guarda los .csv de cada modelo entrenado de cada parametro en cada epoch del modelo (excepto pesos)
     cm_graphs: Almacena las imagenes de matrices de confusión.
+
+Remplazando la linea 38 Se tienen que colocar alguno de los 3 metodos para entrenar
+
+    "oversampling" -> Equilibra la dataset para que los datos de entrenamiento sean equiparejos entre las clases copiando la clase minoritaria
+    "undersampling" -> Equilibra la dataset para que los datos de entrenamiento sean equiparejos entre las clases eliminando datos la clase mayoritaria
+    "weight" -> Se multiplica por un factor la clase minoritaria para que tenga más impacto.
+    
+Además de eso, se crea un archivo csv global, donde compara todos los modelos incluyendo
+
+    F1-SCORE
+    MACRO-PRECISION
+    MACRO-RECALL
+    TIEMPO DE ENTRENAMIENTO
+    TIEMPO DE PREDICT.
