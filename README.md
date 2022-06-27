@@ -1,54 +1,56 @@
-# deteccion-y-clasificacion-de-ataques-en-trafico-de-red-con-dnn
+# Multiples models training with Tensorflow using OverSampling UnderSampling and Weights
 
-Prerequisitos:
+Requirements:
 
-    Instalar 3FEx en linux
-    Librerías necesarias para python:
+    Install 3FEx in linux (not available, it's a library for investigation purposes) -> transform from .pcap to .png and generate a .csv with all caracteristics from .pcap
+    Libraries:
     Tensorflow 
     pickle
     sklearn
     matplotlib
     seaborn
     
-Descarga de los archivos pickle:
+Pickle files download:
     
     https://mega.nz/file/IgVmhBaB#DFpaRBJi5kUvz9p4kBYpRroJ7cmkFdbMSUM5HzmqovU
 
-Hay 4 archivos importantes
+4 important files:
 
 1.- pcap_2_images.py:
-Se revisa el directorio y sus subdirectorios, busca archivos pcap y a cada archivo pcap genera un archivo csv con información proporcionada por snort, también se genera una carpeta con imagenes .JPEG de dimension 1 x 280 pixeles. El nombre de la imagen se divide en 2 partes separadas por un guion bajo "_". Por ejemplo: 1050_1.JPEG. Donde 1050 es la fila 1050 del archivo csv generado mientras que la segunda parte "1" hace referencia a la etiqueta de la imagen, lo cual será util para su clasificación.
+Transform from .pcap to .png and create .csv file with all the information about the .pcap. then orginize the images and data by folders.
+Img size -> (1, 208)
+Rename images add "x_y.png" when x is int number from 0 related with the row from the .csv file created by 3fex and y is the label of the image (clasification purposes) Examples:
 
     1050_1.JPG
-    1050: Renglon 1050 del archivo .csv generado a partir del .pcap
-    1: Etiqueta 1 o verdadera.
+    1050: 1050 row from .csv created from .pcap file
+    1: True (malign behavior inside net traffic)
 
 2.- combinacion_pcaps.py:
-Si se tiene un archivo pcap el cual es trafico limpio, este se puede conmbinar con otro archivo pcap (con una botnet en este caso), para de esta manera se genere una dataset sintética. Igual que el archivo pcap_2_images.py genera un archivo csv, una carpeta con imagenes de la misma dimensión y misma nomenclatura.
+Combine 2 pcaps into 1 for generate syntetic data
 
 3.- create_data.py:
-Este archivo tiene 2 funciones.
-La primera es que busca en todo el directorio todas las imagenes se preprocesasn normalizandolas aleatorizandolas, se crean el dataset de entrenamiento y de validación para posteriormente guardar todo esto en un archivo de tipo "pickle" el cual cuando es llamado carga directamente todo a la memoria evitando que se tenga que preprocesar la información repetidas veces y solo se tenga que hacer una unica vez.
-La segunda función es la función el cargar el archivo pickle en memoria y cargar directamente los datos de entrada y validación.
+Use pickle to preload data and preparate for training.
 
-3.- multiples_modelos_dnn.py: Este archivo utiliza el archivo create_data.py para cargar en memoria toda la dataset creada por los otros archivos en este mismo repositorio.
-Se crean varios directorios
+3.- multiples_modelos_dnn.py: This file use create_data.py for load in memory the dataset. 
+This function create directories and store files.
 
-    h5_logs: Guardan los pesos de los mejores modelos
-    Tensorboard_logs: Guarda los archivos para correr tensorboard
-    csv_logs: Guarda los .csv de cada modelo entrenado de cada parametro en cada epoch del modelo (excepto pesos)
-    cm_graphs: Almacena las imagenes de matrices de confusión.
+    h5_logs: Models with tensorflow
+    Tensorboard_logs: Files for tensorboard
+    csv_logs: csv for each model trained (except weights)
+    cm_graphs: Confusion matrices.
 
-Remplazando la linea 38 Se tienen que colocar alguno de los 3 metodos para entrenar
+Replace lane 38 to select method for training.
 
-    "oversampling" -> Equilibra la dataset para que los datos de entrenamiento sean equiparejos entre las clases copiando la clase minoritaria
-    "undersampling" -> Equilibra la dataset para que los datos de entrenamiento sean equiparejos entre las clases eliminando datos la clase mayoritaria
-    "weight" -> Se multiplica por un factor la clase minoritaria para que tenga más impacto.
+    "oversampling" -> Use oversampling method for equilibrate imbalance data
+    "undersampling" -> Use undersampling method for equilibrate imbalance data
+    "weight" -> Use weighted method for equilibrate imbalance data
     
-Además de eso, se crea un archivo csv global, donde compara todos los modelos incluyendo
+More information [here](https://www.tensorflow.org/tutorials/structured_data/imbalanced_data)
+    
+And finally add this information in csv log.
 
     F1-SCORE
     MACRO-PRECISION
     MACRO-RECALL
-    TIEMPO DE ENTRENAMIENTO
-    TIEMPO DE PREDICT.
+    TRAINING TIME
+    PREDICT TIME.
