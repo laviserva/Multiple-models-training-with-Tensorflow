@@ -45,7 +45,7 @@ Replace lane 38 to select method for training.
     "undersampling" -> Use undersampling method for equilibrate imbalance data
     "weight" -> Use weighted method for equilibrate imbalance data
     
-More information [here](https://www.tensorflow.org/tutorials/structured_data/imbalanced_data)
+More information of this methods used in tensorflow [here](https://www.tensorflow.org/tutorials/structured_data/imbalanced_data)
     
 And finally add this information in csv log.
 
