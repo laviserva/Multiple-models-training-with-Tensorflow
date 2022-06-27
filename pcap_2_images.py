@@ -48,7 +48,8 @@ if platform.system() == "Linux": #Comprobar el tipo de sistema que es.
     #lista de todos archivos pcap dentro del directorio
     for pcap_file in pcap_list:
         csv_file = pcap_file[:-5] + ".csv"
-        if os.path.isfile(csv_file):        
+        if os.path.isfile(csv_file):
+            continue
         """--------------------------------- Paso 2 ---------------------------------"""
         #02.- Crear las imagenes a través de 3fex usando consola de comandos
         try:
