@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Aug  4 17:17:08 2021
-
-@author: Lavi
-"""
-#librerias para deep learning
 import tensorflow as tf
 import keras
 from tensorflow.keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten, InputLayer, BatchNormalization
@@ -16,17 +9,16 @@ from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger, LearningRateS
 import sklearn
 from sklearn.metrics import confusion_matrix
 
-#Librerias para graficar
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-import csv #crear csv
-import os #manejar paths por el sistema operativo
-import datetime #fechas y horas
+import csv
+import os
+import datetime
 import numpy as np
 import math
-import time #manejar tiempos de reloj
+import time
 
 from create_data import create_images #librería para importar archivo pickle
 
@@ -50,11 +42,11 @@ def step_decay(epoch):
     """
     Cambia el learning rate por cada iteracion. Por lo cual, se pueden iniciar con learnings rates "altos"
     """
-	initial_lr = 5.5e-4
-	drop = 0.99
-	epochs_drop = 1
-	lr = initial_lr * math.pow(drop, math.floor((1+epoch)/epochs_drop))
-	return lr
+    initial_lr = 5.5e-4
+    drop = 0.99
+    epochs_drop = 1
+    lr = initial_lr * math.pow(drop, math.floor((1+epoch)/epochs_drop))
+    return lr
 
 def plot_cm(labels1, predictions, labels2, predictions_train, name, p=0.5):    
     
