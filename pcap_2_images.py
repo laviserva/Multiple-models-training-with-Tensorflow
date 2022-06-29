@@ -1,16 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jun 16 14:33:26 2021
-
-Este codigo hará la transformación de archivos pcap 
-
-01.- Realiza una lista de archivos pcap dentro de todo el directorio, incluyendo subcarpetas
-02.- Crear las imagenes a través de 3fex usando consola de comandos
-03.- Crear carpetas junto a los archivos pcap con el nombre de cada archivo pcap
-04.- Se mueven las imagenes creadas a cada carpeta respectiva a cada archivo pcap.
-    Se le cambia el nombre al siguiente: "nombre_archivo_pcap - "numero_de_imagen
-"""
-
 import platform,os
 import pandas as pd
 import cv2
