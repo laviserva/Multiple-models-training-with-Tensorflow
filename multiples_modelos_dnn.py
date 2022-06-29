@@ -40,7 +40,7 @@ weight_decay = 1e-4
 ######################################### Funciones de apoyo #########################################
 def step_decay(epoch):
     """
-    Cambia el learning rate por cada iteracion. Por lo cual, se pueden iniciar con learnings rates "altos"
+    Change learning rate each epoch, this function allow to start with high learning rate values
     """
     initial_lr = 5.5e-4
     drop = 0.99
@@ -89,7 +89,13 @@ def plot_cm(labels1, predictions, labels2, predictions_train, name, p=0.5):
     
     fig_name = os.path.join("cm_graphs",name_dnn)
     plt.savefig(fig_name)
-    print(fig_name)    
+    print(fig_name)   
+
+def make_dir(directory):
+    try:
+        os.mkdir(os.path.join(os.getcwd(), directory))
+    except:
+        print("Ya existe el path ", os.path.join(os.getcwd(), directory))
 
 ######################################### Cargar datos para colores #########################################
 mpl.rcParams['figure.figsize'] = (15, 10)
@@ -98,7 +104,7 @@ colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 [train_images, train_labels] = data
 
 split = 17
-div = int(len(train_labels) * split / 100)
+div = len(train_labels) * split // 100
 
 test_images = train_images[:div]
 test_labels = train_labels[:div]
@@ -137,27 +143,11 @@ csv_dir = "csv_logs"
 images_path = "cm_graphs"
 weights_path = "weights"
 
-try:
-    os.mkdir(os.path.join(os.getcwd(), h5_dirs))
-except:
-    print("Ya existe el path ", os.path.join(os.getcwd(), h5_dirs))
-try:
-    os.mkdir(os.path.join(os.getcwd(), tensorboard_dir))
-except:
-    print("Ya existe el path ", os.path.join(os.getcwd(), tensorboard_dir))
-try:
-    os.mkdir(os.path.join(os.getcwd(), csv_dir))
-except:
-    print("Ya existe el path ", os.path.join(os.getcwd(), csv_dir))
-try:
-    os.mkdir(os.path.join(os.getcwd(), images_path))
-except:
-    print("Ya existe el path ", os.path.join(os.getcwd(), images_path))
-try:
-    os.mkdir(os.path.join(os.getcwd(), weights_path))
-except:
-    print("Ya existe el path ", os.path.join(os.getcwd(), weights_path))
-    
+make_dir(h5_dirs)
+make_dir(tensorboard_dir)
+make_dir(csv_dir)
+make_dir(images_path)
+make_dir(weights_path)
     
 ######################################### Establecer Callbacks #########################################
 class myCallback(tf.keras.callbacks.Callback):
@@ -411,8 +401,8 @@ for regularizacion in Regularizacion:
 
             if technique.lower() == "oversampling":
                 modelo_con_pesos = modelo.fit(
-                    resampled_ds,
-                    validation_data=(val_ds),
+                    train_images, train_labels,
+                    validation_data=(test_images , test_labels),
                     # These are not real epochs
                     steps_per_epoch=20,
                     epochs=EPOCHS,
