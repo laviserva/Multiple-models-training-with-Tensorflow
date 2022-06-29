@@ -96,7 +96,7 @@ def create_images(in_paths = [os.getcwd()], in_pickle =os.getcwd(), out_pickle =
             
         data = [data_images,data_labels]
         
-        out_pickle = out_pickle + "\\" + out_name_pickle
+        out_pickle = os.path.join(out_pickle, out_name_pickle)
     
         print("Saving file: ", out_pickle) 
     
