@@ -1,9 +1,8 @@
 import os
-import pandas as pd
 
-pcap_1 = "esc-02-Mixed-traffic.pcap"
-pcap_2 = "botnet-capture-20110811-neris-refiltered-malicious.pcap"
-csv_name = "botnet.csv"
+#pcap_1 = "esc-02-Mixed-traffic.pcap"
+#pcap_2 = "botnet-capture-20110811-neris-refiltered-malicious.pcap"
+#csv_name = "botnet.csv"
 
 def comb_pcaps(pcap_1, pcap_2, csv_name, folder_name = "imgs"):
     
